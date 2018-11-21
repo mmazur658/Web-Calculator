@@ -1,0 +1,194 @@
+html, body, header, #intro {
+	height: 100%;
+}
+
+body {
+	opacity: 1;
+	transition: 1.5s opacity;
+}
+
+body.fade-out {
+	opacity: 0;
+	transition: none;
+}
+
+#intro {
+	background: url("/img/Web_calculator_background.png") no-repeat center
+		center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.top-nav-collapse {
+	background-color: #2C3853;
+}
+
+@media ( max-width : 768px) {
+	.navbar:not (.top-nav-collapse ) {
+		background-color: #24355C;
+	}
+}
+
+@media ( min-width : 800px) and (max-width: 850px) {
+	.navbar:not (.top-nav-collapse ) {
+		background-color: #24355C;
+	}
+}
+
+.page-footer {
+	background-color: #2C3853 !important;
+}
+footer{
+	position: relative;
+	  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.bg-blue {
+	background-color: #6BB2C2;
+}
+
+.item-dark-blue {
+	color: #2C3853 !important;
+}
+
+.bg-dark-blue {
+	background-color: #2C3853 !important;
+}
+
+.dark-orange {
+	color: #E04B26;
+}
+.accordion .card {
+	margin-bottom: 1.2rem;
+	background: #6BB2C2;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.accordion .card .card-body {
+	border-top: 1px solid #eee;
+}
+.br-10{
+  border-radius: 10px !important;
+}
+.br-14{
+  border-radius: 14px !important;
+}
+.br-15{
+  border-radius: 15px !important;
+}
+.bg-white{
+  background: #ffffff; 	
+}
+.bg-d-orange{
+  background-color: #E04B26 !important; 	
+}
+.bg-orange{
+  background-color: #F99D33 !important; 	
+}
+.mt-100{
+	margin-top: 120px;
+}
+.mt--5{
+  margin-top: -5px;
+}
+.mb--5{
+  margin-bottom: -5px;
+}
+.mh-100{
+	min-height: 100%;
+}
+#card-icon { 
+  transition: 1.2s;
+}
+#card-icon:hover { 
+  font-size: 60px;   
+}
+.badge-warning{
+  position:relative;
+  top: -14px;
+  left: -18px;
+}
+.btn-table-spec{
+	padding: 10px 15px 10px 15px;
+}
+#table-header{
+  position:relative;
+  top: -18px;
+}
+.btn-r-custom{
+  width: 110px;
+  padding: 10px 15px 10px 15px;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #F99D33;
+  color: white;
+}
+.highlight{
+  background-color: #F99D33;
+  color: white;
+}
+.right-angle-button{
+  position:relative;
+  bottom: -20px;
+  right: -130px;
+}
+.left-angle-button{
+  position:relative;
+  bottom: -20px;
+  left: -130px
+}
+.datepicker{z-index:1151 !important;}
+input[type="text"].datepicker-here::-webkit-input-placeholder {
+  color: white;
+}
+#previousBtn:hover, #nextBtn:hover{
+     transform:scale(1.4,1.4);
+    -webkit-transform:scale(1.4,1.4);
+    -moz-transform:scale(1.4,1.4);
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link { 
+	color: #fff;    background-color: #F99D33 !important;
+}
+#card-icon { 
+  transition: 1.2s;    
+}
+#card-icon:hover { 
+  font-size: 60px;   
+}
+.badge-warning{
+  position:relative;
+  top: -14px;
+  left: -18px;
+}
+.calc-input{
+  border-radius: 10px;
+  font-size: 30px !important; 
+  font-color: #2C3853; 
+  margin-bottom: 10px; 
+  margin-bottom: 10px;
+}
+.calc-btn{
+  font-size: 18px;
+  font-weight: bold;
+  width: 90px;
+  height: 50px;
+  padding: 1px 1px 1px 1px;
+}
+.proc-calc-custom-div{
+  background-color: #ffffff;
+  width: 100%;
+  min-height: 40px;
+}
+.font-s-20{
+  font-size: 20px;
+}
+.br-left{
+  border-left: 3px solid #F99D33;
+}
+.div-header{
+  position:relative;
+  top: -18px;
+}
