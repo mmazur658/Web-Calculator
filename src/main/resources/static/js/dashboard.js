@@ -1,7 +1,7 @@
-// global variables
+//  * * * CSRF TOKEN * * * 
 var csrf_token = $("meta[name='_csrf']").attr("content");
 
-// * * * * * * Counter * * * * * * *
+// * * * Counter * * *
 $('.counter-count').each(function () {
         $(this).prop('Counter',0).animate({
             Counter: $(this).text()
@@ -15,19 +15,21 @@ $('.counter-count').each(function () {
    });
 
 
-// * * * * * * * get default chart (current day) on page load * * * * * * 
+// * * *  get default chart (current day) on page load * * *  
 var date = new Date();
 var startDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 var endDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 getChartForGivenDateRange(startDate, endDate, startDate);
 
-//* * * * * * * * Load char when date range is changed * * * * * * * *	
+// * * *  Load char when date range is changed * * * 
 $('input[name=charDataRange]').change(function(){	
 	var radioSelectValue = $( 'input[name=charDataRange]:checked' ).val();
 	
+	// date variables
 	var startDate;
 	var endDate;
 	
+	// load chart for given date range
 	if (radioSelectValue == 'today') {
 		
 		var date = new Date();
@@ -65,21 +67,16 @@ $('input[name=charDataRange]').change(function(){
 		date.setDate(date.getDate() - 1);
 		endDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 		var label = startDate + " - " + endDate;
-		getChartForGivenDateRange(startDate, endDate, label);
-		
+		getChartForGivenDateRange(startDate, endDate, label);		
 	}
-
 });
-
-
-
-// * * * * * get chart for given date range * * * * * 
-
+// * * * FUNCTIONS * * *
+// * * * get chart for given date range * * *
 var myBarChart;
-
 
 function getChartForGivenDateRange(startDate, endDate, label){
 
+	// get data to populate chart
 	$.post("calculator-stats/get-calculator-stats-for-given-range", {	
 		startDate: startDate,
 		endDate: endDate,	
@@ -87,12 +84,14 @@ function getChartForGivenDateRange(startDate, endDate, label){
 		_csrf: csrf_token
 	}, function(data){	
 		
+		// destroy chart if exists to prevent unexpected behavior
 		if(myBarChart){
 			myBarChart.destroy();
 		}		
 		
-		var labels =" ";
 		
+		// populate chart with data
+		var labels =" ";		
 		  var ctxB = document.getElementById("barChart").getContext('2d');
 		  myBarChart = new Chart(ctxB, {
 		    type: 'bar',
@@ -130,4 +129,3 @@ function getChartForGivenDateRange(startDate, endDate, label){
 		  });	
 	});	
 }
-

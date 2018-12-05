@@ -1,9 +1,9 @@
-// * * * * LOAD BASIC CALCULATOR ON PAGE LOAD * * * *
+// * * * LOAD BASIC CALCULATOR ON PAGE LOADING * * *
 $(document).ready(function(){
 	$('#calculator-placeholder').load('basic-calculator')
 });
 
-// * * * * basic calculator * * * * 
+// * * *  basic calculator * * *
 $('#basic-calc').click(function() {
 	$('#calculator-placeholder').fadeOut('slow', function(){
 		$('#calculator-placeholder').load('basic-calculator', function(){
@@ -12,7 +12,7 @@ $('#basic-calc').click(function() {
     });   	
 });
 
-//* * * * advanced calculator * * * * 
+// * * * advanced calculator * * * 
 $('#advanced-calc').click(function() {
     $('#calculator-placeholder').fadeOut('slow', function(){
     	$('#calculator-placeholder').load('advanced-calculator', function(){
@@ -21,7 +21,7 @@ $('#advanced-calc').click(function() {
     });   
 });
 
-//* * * * science calculator * * * * 
+// * * * science calculator * * *  
 $('#science-calc').click(function() {
     $('#calculator-placeholder').fadeOut( function(){
     	$('#calculator-placeholder').load('science-calculator', function(){

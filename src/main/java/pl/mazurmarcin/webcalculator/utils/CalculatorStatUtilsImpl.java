@@ -20,14 +20,11 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 	public CalculatorStat createNewCalculatorStat(String methodName) throws ParseException {
 
 		CalculatorStat calculatorStat = new CalculatorStat();
-
-		new CalculatorStat();
 		calculatorStat.setCalcName(methodName);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(new Date()) + " 00:00:00.0";
-		Date date2 = sdf.parse(date);
-		calculatorStat.setDate(date2);
+		calculatorStat.setDate(sdf.parse(date));
 
 		return calculatorStat;
 	}

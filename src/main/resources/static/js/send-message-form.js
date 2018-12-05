@@ -1,28 +1,32 @@
-// * * * * * * global variables * * * * * 
+// * * * CSRF TOKEN * * * 
 var csrf_token = $("meta[name='_csrf']").attr("content");
 
-// * * * * * * * * * * contact form message - send message * * * * * * * * * * * * 
-
+// * * * send message * * * 
 $(document).ready(function(){
 	$('#contact-form').submit(function(event){
 						
+		// prevent form form default action
 		event.preventDefault();
 		
+		// get form url
 	    var $form = $( this ),
 	    	url = $form.attr( 'action' );
 		
+	    // check if all required fields are not null
 		if($.trim($('#contact-name').val()) == "" || $.trim($('#contact-email').val()) == "" ||	 $.trim($('#contact-subject').val()) == "" ||
 		   $.trim($('#contact-message').val()) == "" ){
 			
+			// show message if one of the fields is null
 			showCustomAlert('error','Niewypełnione pola','Proszę wypełnić wszystkie pola w formularzu kontaktowym','Blank fields','Please fill in all fields in contact form');
 			
 		} else {
 			
-			var posting = $.post( url, { senderName: $('#contact-name').val(), senderEmail: $('#contact-email').val(), 
+			// send message
+			$.post( url, { senderName: $('#contact-name').val(), senderEmail: $('#contact-email').val(), 
 				messageSubject: $('#contact-subject').val(), messageText: $('#contact-message').val(), _csrf: csrf_token }, function(data, status) { 
 					
-					if (status == "success"){
-						
+					// clear form fields and show message depending on status
+					if (status == "success"){						
 						showCustomAlert('success','','Wiadomość została wysłana.','','The message has been sent.');
 						$("#contact-name").val("").focus();
 						$("#contact-email").val("").focus();
@@ -36,7 +40,7 @@ $(document).ready(function(){
 	});
 });
 
-//* * * * * * * * * * Show toastr alert, depends on the langauge  * * * * * * * * * * 
+// * * * Show toastr alert depending on the langauge  * * * 
 function showCustomAlert(type, titlePL, textPL, titleEN, textEN){
 	
 	var userLang = document.documentElement.lang;

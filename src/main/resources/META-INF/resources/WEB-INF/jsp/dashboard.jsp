@@ -68,7 +68,7 @@
 							<i id="card-icon" class="fas fa-envelope fa-3x text-muted align-middle"></i>
 						</div>
 					</div>
-			        <a href="#!" class="btn btn-warning btn-block py-2"><spring:message code="btn.more"/>}</a>
+			        <a href="#!" class="btn btn-warning btn-block py-2"><spring:message code="btn.more"/></a>
 			      </div>			 
 <!-- UNDER CONSTRUCTION -->			  
 			       	  <img src="<%=request.getContextPath()%>/img/long-caution-tape.png" style=" z-index: 1; position: absolute;" width="100%" height="25px"/>

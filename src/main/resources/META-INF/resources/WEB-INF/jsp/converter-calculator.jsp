@@ -28,7 +28,7 @@
 			<div class="container-fluid d-flex align-items-center h-100">
 	            <div class="row d-flex text-center">
 	            	<div class="col-md-10 ml-5">
-	                    <h2 class="display-4 font-weight-bold white-text pt-5 mb-2 wow fadeIn" data-wow-delay="1s">${converterCalculatorHeading}</h2>	                   
+	                    <h2 class="display-4 font-weight-bold white-text pt-5 mb-2 wow fadeIn" data-wow-delay="1s"><spring:message code="converter.calculator.heading"/></h2>	                   
 	                </div>
 	            </div>
 	        </div>

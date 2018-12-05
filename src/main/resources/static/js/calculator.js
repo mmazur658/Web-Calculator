@@ -1,4 +1,4 @@
-// * * * * * * * * Basic, Advanced and Science Calculator* * * * * * * * * * * * * * * * * * * * * * * * * 
+// * * *  Basic, Advanced and Science Calculator * * * 
 $(document).ready(function(){
 	var currentEntry;
 	var buttonPressed;
@@ -8,7 +8,7 @@ $(document).ready(function(){
 		  buttonPressed = $(this).val();
 		  currentEntry =  $("#screen-input").val();		 
 		  	  
-	// get currentEntry and spit it on parts
+	// get currentEntry and split it on parts
 		  var startIndex;
 		  var endIndex;
 		  var operatorIndex;
@@ -16,7 +16,7 @@ $(document).ready(function(){
 		  var firstNumber;
 		  var secondNumber;
 
-		  // find index of operator. Part before operator is a first number and part after operator is a second number 
+		  // find operator index. Part before operator is a first number and part after operator is a second number 
 		  for(var i=1; i < currentEntry.length; i++){			  
 			  var character = currentEntry.charAt(i);			  
 			  if(character == "/" || character == "+" || character == "-" || character == "*" || character == "p" || character == "r"){

@@ -23,13 +23,13 @@
 <!-- SOCIAL MEDIA AND LANGUAGE -->	
 			<ul class="navbar-nav nav-flex-icons">			
 			    <li class="nav-item">
-			        <a class="nav-link"><i class="fab fa-facebook-f"></i></a>
+			        <a href="https://www.facebook.com/marcin.mazur.1024.2" class="nav-link"><i class="fab fa-facebook-f"></i></a>
 			    </li>
 			    <li class="nav-item">
-			        <a class="nav-link"><i class="fab fa-linkedin-in"></i></a>
+			        <a href="https://www.linkedin.com/in/marcin-mazur-1024/" class="nav-link"><i class="fab fa-linkedin-in"></i></a>
 			    </li>
 			    <li class="nav-item">
-			        <a class="nav-link"><i class="fab fa-github"></i></a>
+			        <a href="https://github.com/mmazur658" class="nav-link"><i class="fab fa-github"></i></a>
 			    </li>
 			    
 			    <li class="nav-item mt-2 mx-2">

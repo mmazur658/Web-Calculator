@@ -7,17 +7,17 @@
 	<div class="container">
 		 <ul class="list-unstyled list-inline text-center">
 	        <li class="list-inline-item wow fadeInLeftBig" data-wow-delay="0.5s">
-	          	<a class="btn-floating btn-fb mx-1">
+	          	<a href="https://www.facebook.com/marcin.mazur.1024.2" class="btn-floating btn-fb mx-1">
 	            	<i class="fab fa-facebook-f fa-4x pr-4 "> </i>
 	          	</a>
 	        </li>
 	        <li class="list-inline-item wow fadeInLeftBig" data-wow-delay="0.3s">
-		      	<a class="btn-floating btn-linkedin mx-1">
+		      	<a href="https://www.linkedin.com/in/marcin-mazur-1024/" class="btn-floating btn-linkedin mx-1">
 	               <i class="fab fa-linkedin-in fa-4x pr-4"> </i>
 	            </a>
 	        </li>
 	        <li class="list-inline-item wow fadeInLeftBig" data-wow-delay="0.1s">
-	          	<a class="btn-floating btn-github mx-1">
+	          	<a href="https://github.com/mmazur658" class="btn-floating btn-github mx-1">
 	            	<i class="fab fa-github fa-4x"> </i>
 	          	</a>
 	        </li>

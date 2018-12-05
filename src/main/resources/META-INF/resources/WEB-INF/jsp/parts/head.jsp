@@ -49,3 +49,15 @@
 <meta name="msapplication-TileImage" content="<%=request.getContextPath()%>/img/favicon/favicon-144.png">
 <meta name="msapplication-config" content="<%=request.getContextPath()%>/img/favicon/browserconfig.xml">
 <!-- * * * * FAVICON * * * *  -->
+<!-- COOKIE ALERT -->
+<script src="http://cookiealert.sruu.pl/CookieAlert-latest.min.js"></script>
+<script>
+CookieAlert.init({
+	style: 'dark',
+	position: 'top',
+	opacity: '1',
+	displayTime: 0,
+	cookiePolicy: 'http://cookiealert.sruu.pl/o-ciasteczkach',
+	text: 'Ten serwis wykorzystuje pliki cookies. Korzystanie z witryny oznacza zgodę na ich zapis lub odczyt wg ustawień przeglądarki.'
+});
+</script>

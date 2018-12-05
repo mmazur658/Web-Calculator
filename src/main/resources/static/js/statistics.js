@@ -1,40 +1,42 @@
-//* * * * * * * * * * Global variables* * * * * * * * * * *
-var userLang = navigator.language;
-
+//  * * * CSRF TOKEN * * * 
 var csrf_token = $("meta[name='_csrf']").attr("content");
 
+// * * * user language * * *
+var userLang = navigator.language;
+
+//* * * months arrays * * * 
 var monthNamesEN = ["January", "February", "March", "April", "May", "June",
 	  "July", "August", "September", "October", "November", "December"	];
 var monthNamesPL = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
 	  "Lipiec", "Sierpień", "Wrzesirń", "Październik", "Listopad", "Grudzień"	];	  
 
-//* * * * * * * * * * Hide custom range section on start* * * * * * * * * * *
+// * * *  Hide custom range section on page loading * * * 
 $('#customRangeSection').hide();
 
-//* * * * * * * * * * show custom range section on radio select * * * * * * * * * * *
+//* * * show custom range section on radio select * * * 
 $('input[name=charDataRange]').change(function(){	
-	var radioSelectValue = $( 'input[name=charDataRange]:checked' ).val();
-	
+	var radioSelectValue = $( 'input[name=charDataRange]:checked' ).val();	
 	if (radioSelectValue == 'custom') {
 		$('#customRangeSection').show(600);		
 	}
 });
 
-// * * * * * * * get default chart (current day) on page load * * * * * * 
+// * * * load default chart (current day) on page loading * * * 
 var date = new Date();
 var startDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 var endDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 getChartForGivenDateRange(startDate, endDate, startDate, 'horizontalBar','barChart');
 
-//* * * * * * * * Load char when date range is changed * * * * * * * *	
+// * * * Load char when date range has been changed * * * 
 $('input[name=charDataRange]').change(function(){	
 	var radioSelectValue = $( 'input[name=charDataRange]:checked' ).val();
 
+	// date variables
 	var startDate;
 	var endDate;
 	
-	if (radioSelectValue == 'today') {
-		
+	// load chart depending on date range
+	if (radioSelectValue == 'today') {		
 		var date = new Date();
 		$('#customRangeSection').hide(600);
 		startDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -42,7 +44,6 @@ $('input[name=charDataRange]').change(function(){
 		getChartForGivenDateRange(startDate, endDate, startDate,'horizontalBar','barChart');
 		
 	} else if (radioSelectValue == 'yesterday'){
-		
 		var date = new Date();
 		$('#customRangeSection').hide(600);
 		date.setDate(date.getDate() - 1);
@@ -81,25 +82,28 @@ $('input[name=charDataRange]').change(function(){
 
 });
 
-//* * * * * * * * Load char with custom date range * * * * * * * *
+// * * *  Load char with custom date range * * *
 $('#customDateRangeSearchButton').on('click', function(){
 	
+	// get input data
 	var startDate = $('#customRangeStartDate').val();
 	var endDate = $('#customRangeEndDate').val();	
 	var label = startDate + " - " + endDate;
 	
+	// load chart
 	getChartForGivenDateRange(startDate, endDate, label, 'horizontalBar','barChart');	
 });
 
 
-//* * * * * populate calculator select * * * * * * 
+// * * * populate calculator list * * *
 $(document).ready(function(){
 	
+	// calculators
 	var calculatorType_PL=["Kwadrat", "Prostokąt", "Długość", "Masa", "Powierzchnia", "Waluty",	"Procenty" ];
 	var calculatorType_EN=["Square", "Rectangle", "Length", "Weight", "Area", "Currency", "Percentage" ];	
 	
-	for (var i = 0; i < calculatorType_EN.length; i++) {	
-		
+	// populate calculators lists
+	for (var i = 0; i < calculatorType_EN.length; i++) {			
 		if(userLang == "pl-PL")
 			$('#calculatorSelect').append('<option value="calculate' + calculatorType_EN[i] + '">' +calculatorType_PL[i] +'</option>');
 		else 		    	
@@ -109,44 +113,51 @@ $(document).ready(function(){
     }
 });
 
-// * * * * * load first calculator details and statistics * * * * * * * * * * *
+// * * * load first calculator details and statistics on page loading* * * 
 loadGeneralStatistics("calculateSquare");
 
-// * * * * * * * *  Load current month and load monthly chart on start * * * * * * * * * 
+// * * * Load current month and load monthly chart on page loading * * *
 var date = new Date();
+
+// get current month depending on user language
 if(userLang == "pl-PL")
 	$("#inputMonth").val(monthNamesPL[date.getMonth()]+" "+date.getFullYear());
 else 
 	$("#inputMonth").val(monthNamesEN[date.getMonth()]+" "+date.getFullYear());
 
+// load chart for given month
 $("a[data-target='#v-pills-methods']").on('shown.bs.tab', function () {
 	var resultSet = prepareDataToCreateChart($("#inputMonth").val());	
 	getChartWithMonthlyData(resultSet[0], resultSet[1], resultSet[2], 'bar', 'monthlyChart',resultSet[3])
 }); 
 
-//* * * * * * * * Load monthly chart on button click* * * * * * * * * * * * * * 
+// * * * Load monthly chart on button click * * *
 $('#getMonthlyChart').on('click', function(){
 	
 	var resultSet = prepareDataToCreateChart($("#inputMonth").val());	
 	getChartWithMonthlyData(resultSet[0], resultSet[1], resultSet[2], 'bar', 'monthlyChart',resultSet[3])
 	
 });
-//* * * * * * * * Load monthly chart and general statistics on calculator change * * * * * * * * * * 
+// * * *  Load monthly chart and general statistics on calculator change * * *
 $('#calculatorSelect').on('change', function (e) {
+	
+	// get calculator name
     var optionSelected = $("option:selected").val();
     
+    // load data for selected calculator
     loadGeneralStatistics(optionSelected);
 	var resultSet = prepareDataToCreateChart($("#inputMonth").val());	
 	getChartWithMonthlyData(resultSet[0], resultSet[1], resultSet[2], 'bar', 'monthlyChart',resultSet[3])
 	
 });
 
-// * * * * * * * * * * * * * * * * * * * * * * * * * * FUNCTIONS * * * * * * * * * * * * * * * * * * * * * * * * * *
-//* * * * * * monthly chart * * * * * * * 
+// * * * FUNCTIONS * * *
+// * * * monthly chart * * *
 var myChart;
 
 function getChartWithMonthlyData(startDate, endDate, label, barType, chartLocationId, monthLength){
 	
+	// ge data to populate chart
 	$.post("calculator-stats/get-selected-calculator-monthly-data", {	
 		startDate: startDate,
 		endDate: endDate,
@@ -179,6 +190,7 @@ function getChartWithMonthlyData(startDate, endDate, label, barType, chartLocati
 				borderColor.push('rgba(107, 178, 194, 1)')				
 			}	
 		}
+		
 		// chart options
 		  var ctxB = document.getElementById(chartLocationId).getContext('2d');
 		  myChart = new Chart(ctxB, {
@@ -205,7 +217,7 @@ function getChartWithMonthlyData(startDate, endDate, label, barType, chartLocati
 		  });	
 	});	
 }
-//* * * * * * * *  prepare data to create chart * * * * * * * * * * * * 
+// * * *  prepare data to create chart * * * 
 function prepareDataToCreateChart(inputMonthValue){	
 	
 	// extract year and monthName from inputMonthValue
@@ -248,11 +260,13 @@ function prepareDataToCreateChart(inputMonthValue){
 	return resultSet;
 }
 
-//* * * * * get chart for given date range * * * * *  barType: horizontalBar, bar
+//* * * get chart for given date range * * *
+// barType: horizontalBar, bar
 var myBarChart;
 
 function getChartForGivenDateRange(startDate, endDate, label, barType, chartLocationId){
 
+	// get data to populate chart
 	$.post("calculator-stats/get-calculator-stats-for-given-range", {	
 		startDate: startDate,
 		endDate: endDate,	
@@ -312,32 +326,31 @@ function getChartForGivenDateRange(startDate, endDate, label, barType, chartLoca
 	});	
 }
 
-//* * * * * * * * load general statistics * * * * * * * * * * * * *
+// * * * load general statistics * * *
 function loadGeneralStatistics(calculatorName){
 	
 	// load general statistics based on calculator name
-	var url = "calculator-stats/get-selected-calculator-general-statistics"		
-		$.post(url,{calculatorName: calculatorName, _csrf: csrf_token}, function(data){
+	$.post("calculator-stats/get-selected-calculator-general-statistics"	,{calculatorName: calculatorName, _csrf: csrf_token}, function(data){
 			
-			$('#calculatorfirstUse').fadeOut('1000', function() {				
-				$('#calculatorfirstUse').text(data[0]);
-			}).fadeIn('1000');	
-			$('#calculatorToday').fadeOut('1000', function() {				
-				$('#calculatorToday').text(data[1]);
-			}).fadeIn('1000');	
-			$('#calculatorYesterday').fadeOut('1000', function() {				
-				$('#calculatorYesterday').text(data[2]);
-			}).fadeIn('1000');	
-			$('#calculator7Days').fadeOut('1000', function() {				
-				$('#calculator7Days').text(data[3]);
-			}).fadeIn('1000');	
-			$('#calculator30Days').fadeOut('1000', function() {				
-				$('#calculator30Days').text(data[4]);
-			}).fadeIn('1000');	
-			$('#calculatorEver').fadeOut('1000', function() {				
-				$('#calculatorEver').text(data[5]);
-			}).fadeIn('1000');	
-			
-		});
+		// populate fields
+		$('#calculatorfirstUse').fadeOut('1000', function() {				
+			$('#calculatorfirstUse').text(data[0]);
+		}).fadeIn('1000');	
+		$('#calculatorToday').fadeOut('1000', function() {				
+			$('#calculatorToday').text(data[1]);
+		}).fadeIn('1000');	
+		$('#calculatorYesterday').fadeOut('1000', function() {				
+			$('#calculatorYesterday').text(data[2]);
+		}).fadeIn('1000');	
+		$('#calculator7Days').fadeOut('1000', function() {				
+			$('#calculator7Days').text(data[3]);
+		}).fadeIn('1000');	
+		$('#calculator30Days').fadeOut('1000', function() {				
+			$('#calculator30Days').text(data[4]);
+		}).fadeIn('1000');	
+		$('#calculatorEver').fadeOut('1000', function() {				
+			$('#calculatorEver').text(data[5]);
+		}).fadeIn('1000');		
+	});
 }
 		

@@ -1,7 +1,7 @@
-// global variables
+//  * * * CSRF TOKEN * * * 
 var csrf_token = $("meta[name='_csrf']").attr("content");
 
-//* * * * * * * * * * culculations type * * * * * * * * * *
+// * * * make culculations depending on calculation type * * * 
 $('#percentage-calc-101').submit(function(event) {		
 	event.preventDefault();      
 	var $form = $( this ),
@@ -45,23 +45,28 @@ $('#percentage-calc-107').submit(function(event) {
 	getPercentageResult('#param107Value1', '#param107Value2', '#result107', '107', url)	   
 });
 
-//* * * * * * * * * * get results * * * * * * * * * *
+// * * * get results * * *
 function getPercentageResult(paramValue1Id, paramValue2Id, resultId, operationCode, url){
 	
+	// check if input data contains commas
 	if($.trim($(paramValue1Id).val()).indexOf(",") != -1 || $.trim($(paramValue2Id).val()).indexOf(",") != -1){		
 		showCustomAlert('error','','Proszę użyć kropki zamiast przecinka','','Please use dot insted of comma');
 	} else {
+		
+		// check if all required fields are not null
 		if(!$.isNumeric($.trim($(paramValue1Id).val())) || !$.isNumeric($.trim($(paramValue2Id).val()))){
 			showCustomAlert('error','Puste Pola','Proszę wypełnić oba pola','Blank fields','Please fill all two fields');	
 		} else {
-			var posting = $.post( url, { operationNumber: operationCode, paramValue1: $(paramValue1Id).val(), paramValue2: $(paramValue2Id).val(), _csrf: csrf_token  }, function(data) {
+			
+			// get result
+			$.post( url, { operationNumber: operationCode, paramValue1: $(paramValue1Id).val(), paramValue2: $(paramValue2Id).val(), _csrf: csrf_token  }, function(data) {
 				$(resultId).text(data);
 			}); 	  
 		}; 
 	}
 }
 
-//* * * * * * * * * * clear fields  * * * * * * * * * * 
+// * * * clear all fields on button click * * * 
 $(document).ready(function(){
 	$("#clear-btn").click(function(){
 		$("input").val("");
@@ -69,7 +74,7 @@ $(document).ready(function(){
 	});
 });
 
-//* * * * * * * * * * Show toastr alert, depends on the langauge  * * * * * * * * * * 
+// * * * Show toastr alert depending on the langauge  * * * 
 function showCustomAlert(type, titlePL, textPL, titleEN, textEN){
 	
 	var userLang = document.documentElement.lang;

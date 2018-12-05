@@ -114,7 +114,7 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 			int monthLength) {
 
 		startDate = startDate + " 00:00:00.0";
-		endDate = endDate + " 00:00:00.0";
+		endDate = endDate + " 23:59:59.9";
 
 		List<Object[]> resultList = claculatorStatDao.getSelectedCalculatorMonthlyData(calculatorName, startDate,
 				endDate);

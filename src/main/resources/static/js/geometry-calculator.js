@@ -1,7 +1,7 @@
-// * * global variables
+// * * * CSRF TOKEN * * * 
 var csrf_token = $('input[name="_csrf"]').val();
 
-// * * * * clear all other fields then clicked * * * * 
+// * * * clear input fields * * * 
 $("#squareInputCircuit").keypress(function(){
 	clearSquareFields("#squareInputCircuit");
 });
@@ -18,84 +18,83 @@ $("#squareInputRadius").keypress(function(){
 	clearSquareFields("#squareInputRadius");
 });
 
-// * * * * * submit square calculator form * * * * 
+// * * * submit square calculator form * * *
 $("#squareForm").submit(function(event) {
 
-      event.preventDefault();
+	// prevent form form default action
+    event.preventDefault();
 
-      var $form = $( this ),
-          url = $form.attr( 'action' );
+    // get form url
+    var $form = $( this ),
+        url = $form.attr( 'action' );
       
-      var hasNumericValue = findNumericValue($('#squareInputRadius').val(),$('#squareInputDiameter').val(),$('#squareInputSideA').val(), $('#squareInputCircuit').val(), $('#squareInputField').val());
+    // check if input data have only numeric value
+    var hasNumericValue = findNumericValue($('#squareInputRadius').val(),$('#squareInputDiameter').val(),$('#squareInputSideA').val(), $('#squareInputCircuit').val(), $('#squareInputField').val());
       
-      if(!hasNumericValue){
-    	  
+    // clear fields and show message if input have non numeric value
+    if(!hasNumericValue){    	  
     	clearFields("#squareInputSideA","#squareInputCircuit","#squareInputField","#squareInputDiameter","#squareInputRadius");    	  
   		showCustomAlert('error','Tylko wartości numeryczne','Niepoprawny format danych','Only numeric values','Incorrect data format');
+    } else {
 
-      } else {
-
-
-      if($.trim($('#squareInputSideA').val()) != ""){
-    	  var posting = $.post( url, { paramName: 'squareSideA', paramValue: $('#squareInputSideA').val(), _csrf: csrf_token }, function(data) {
-    		  populateSquareInputFields(data);
-    	  }); 
-      } else if ($.trim($('#squareInputCircuit').val()) != ""){
-    	  var posting = $.post( url, { paramName: 'squareCircuit', paramValue: $('#squareInputCircuit').val(), _csrf: csrf_token }, function(data) {
-    		  populateSquareInputFields(data);
-    	  }); 
-      } else if ($.trim($('#squareInputField').val()) != ""){
-    	  var posting = $.post( url, { paramName: 'squareField', paramValue: $('#squareInputField').val(), _csrf: csrf_token }, function(data) {
-    		  populateSquareInputFields(data);
-    	  }); 
-      } else if ($.trim($('#squareInputDiameter').val()) != ""){
-    	  var posting = $.post( url, { paramName: 'squareDiameter', paramValue: $('#squareInputDiameter').val(), _csrf: csrf_token }, function(data) {
-    		  populateSquareInputFields(data);
-    	  }); 
-      } else if ($.trim($('#squareInputRadius').val()) != ""){
-    	  var posting = $.post( url, { paramName: 'squareRadius', paramValue: $('#squareInputRadius').val(), _csrf: csrf_token }, function(data) {
-    		  populateSquareInputFields(data);
-    	  }); 
-      } else {
-    	  clearFields("#squareInputSideA","#squareInputCircuit","#squareInputField","#squareInputDiameter","#squareInputRadius");
-      }
-      };
-	
- });
+    	  // get calcualtion result 
+	      if($.trim($('#squareInputSideA').val()) != ""){
+	    	  var posting = $.post( url, { paramName: 'squareSideA', paramValue: $('#squareInputSideA').val(), _csrf: csrf_token }, function(data) {
+	    		  populateSquareInputFields(data);
+	    	  }); 
+	      } else if ($.trim($('#squareInputCircuit').val()) != ""){
+	    	  var posting = $.post( url, { paramName: 'squareCircuit', paramValue: $('#squareInputCircuit').val(), _csrf: csrf_token }, function(data) {
+	    		  populateSquareInputFields(data);
+	    	  }); 
+	      } else if ($.trim($('#squareInputField').val()) != ""){
+	    	  var posting = $.post( url, { paramName: 'squareField', paramValue: $('#squareInputField').val(), _csrf: csrf_token }, function(data) {
+	    		  populateSquareInputFields(data);
+	    	  }); 
+	      } else if ($.trim($('#squareInputDiameter').val()) != ""){
+	    	  var posting = $.post( url, { paramName: 'squareDiameter', paramValue: $('#squareInputDiameter').val(), _csrf: csrf_token }, function(data) {
+	    		  populateSquareInputFields(data);
+	    	  }); 
+	      } else if ($.trim($('#squareInputRadius').val()) != ""){
+	    	  var posting = $.post( url, { paramName: 'squareRadius', paramValue: $('#squareInputRadius').val(), _csrf: csrf_token }, function(data) {
+	    		  populateSquareInputFields(data);
+	    	  }); 
+	      } else {
+	    	  clearFields("#squareInputSideA","#squareInputCircuit","#squareInputField","#squareInputDiameter","#squareInputRadius");
+	      }
+     };	
+});
    
-//* * * * * clear square form * * * * 
+// * * *  clear square form * * *
 $("#square-clear-btn").click(function(){		
 	clearFields("#squareInputSideA","#squareInputCircuit","#squareInputField","#squareInputDiameter","#squareInputRadius");
 });
 
-//* * * * * clear rectangle form * * * * 
+// * * * clear rectangle form * * * 
 $("#rectangle-clear-btn").click(function(){		
 	clearFields("#rectangleInputSideA","#rectangleInputSideB","#rectangleInputField","#rectangleInputCircuit","#rectangleInputDiameter","#rectangleInputRadius")	
 });
 
-// * * * * clear given fields
-function clearFields(){	
-	for(var i = 0; i < arguments.length; i++)
-		$(arguments[i]).val("").focus().trigger('blur');;				
-}
-
-//* * * * * submit rectangle form * * * * 
+// * * * submit rectangle form * * * 
 $("#rectangleForm").submit(function(event) {
 
+	// prevent form form default action
 	 event.preventDefault();
 
+	// get form url
      var $form = $( this ),
          url = $form.attr( 'action' );
 	
+     // check if input data have only numeric value
      var hasNumericValue = findNumericValue($('#rectangleInputRadius').val(),$('#rectangleInputDiameter').val(),$('#rectangleInputCircuit').val(),$('#rectangleInputField').val(),$('#rectangleInputSideB').val(),$('#rectangleInputSideA').val());
      
-     if(!hasNumericValue){
-   	  
+     // clear fields and show message if input have non numeric value
+     if(!hasNumericValue){   	  
     	clearFields("#rectangleInputSideA","#rectangleInputSideB","#rectangleInputField","#rectangleInputCircuit","#rectangleInputDiameter","#rectangleInputRadius") 	  
  		showCustomAlert('error','Tylko wartości numeryczne','Niepoprawny format danych','Only numeric values','Incorrect data format');
 
      } else {
 	
+    	// get calcualtion result 
     	 if($.trim($('#rectangleInputSideA').val()) != "" && $.trim($('#rectangleInputSideB').val()) != "" && $.trim($('#rectangleInputCircuit').val()) == "" && $.trim($('#rectangleInputField').val()) == "" ) {
     		 var posting = $.post( url, { paramName: 'sideA-sideB', paramValue1: $('#rectangleInputSideA').val(), paramValue2: $('#rectangleInputSideB').val(), _csrf: csrf_token  }, function(data) {
     			 populateRectangleInputFields(data)
@@ -123,7 +122,8 @@ $("#rectangleForm").submit(function(event) {
      }
 });	
 
-// * * * * * * * * * * Show toastr alert, depends on the langauge  * * * * * * * * * * 
+// * * * FUNCTIONS * * *
+// * * * Show toastr alert depending on the langauge  * * *
 function showCustomAlert(type, titlePL, textPL, titleEN, textEN){
 	
 	var userLang = document.documentElement.lang;
@@ -145,7 +145,7 @@ function clearSquareFields(clickedInputId){
 	$(clickedInputId).focus();
 }
 
-//* * * * * check if any of the given parameters is numeric
+// * * * check if any of the given parameters is numeric * * *
 function findNumericValue(){
 	
 	var hasNumericValue = false;
@@ -153,12 +153,11 @@ function findNumericValue(){
 	for(var i = 0; i < arguments.length; i++){
 		if ($.isNumeric($.trim(arguments[i])))
 			hasNumericValue	= true;
-	}
-	
+	}	
 	return hasNumericValue;	
 }
 
-//* * * * * populate sqaure input field * * * *
+// * * *  populate sqaure input field * * * 
 function populateSquareInputFields(data){
 	  $("#squareInputSideA").val(data[0]).focus();
       $("#squareInputCircuit").val(data[1]).focus();
@@ -167,7 +166,7 @@ function populateSquareInputFields(data){
       $("#squareInputRadius").val(data[4]).focus();
 }
 
-//* * * * * populate rectangle input field * * * *
+// * * * populate rectangle input field * * *
 function populateRectangleInputFields(data){
 	$("#rectangleInputSideA").val(data[0]).focus();
 	$("#rectangleInputSideB").val(data[1]).focus();
@@ -175,4 +174,9 @@ function populateRectangleInputFields(data){
 	$("#rectangleInputCircuit").val(data[3]).focus();
 	$("#rectangleInputDiameter").val(data[4]).focus();
 	$("#rectangleInputRadius").val(data[5]).focus();
+}
+// * * * clear given fields
+function clearFields(){	
+	for(var i = 0; i < arguments.length; i++)
+		$(arguments[i]).val("").focus().trigger('blur');;				
 }
