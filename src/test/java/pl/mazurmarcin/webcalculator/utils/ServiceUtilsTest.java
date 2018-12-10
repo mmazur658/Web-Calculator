@@ -106,9 +106,9 @@ class ServiceUtilsTest {
 				messageText, messageSubject);
 
 		assertFalse(contactFormMessage.getIsReaded());
-		serviceUtilsImpl.changeIsReadedStatus(contactFormMessage);
+		serviceUtilsImpl.changeIsReadStatus(contactFormMessage);
 		assertTrue(contactFormMessage.getIsReaded());
-		serviceUtilsImpl.changeIsReadedStatus(contactFormMessage);
+		serviceUtilsImpl.changeIsReadStatus(contactFormMessage);
 		assertFalse(contactFormMessage.getIsReaded());
 
 	}

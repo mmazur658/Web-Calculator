@@ -9,6 +9,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+/**
+ * Spring Security class 
+ * 
+ * @author Marcin Marcin
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -29,6 +35,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin-action/**").hasRole("ADMIN").and().formLogin().loginPage("/login-form")
 				.loginProcessingUrl("/authenticateTheUser").permitAll().and().logout();
 
-		// .and().exceptionHandling().accessDeniedPage("/access-denied");
 	}
 }

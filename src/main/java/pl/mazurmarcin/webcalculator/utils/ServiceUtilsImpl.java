@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 import pl.mazurmarcin.webcalculator.entity.Comment;
 import pl.mazurmarcin.webcalculator.entity.ContactFormMessage;
 
+/**
+ * Utility class used to perform operations for service classes
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Component
 public class ServiceUtilsImpl implements ServiceUtils {
 
@@ -33,8 +39,10 @@ public class ServiceUtilsImpl implements ServiceUtils {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(hqlType);
+		// if the list type is equal to "new" then HQL returns all active elements
 		if (listType.equals("new"))
 			sb.append("where isActive=true ");
+		// if the list type is equal to "new" then HQL returns all inactive elements
 		else if (listType.equals("archive"))
 			sb.append("where isActive=false ");
 
@@ -76,7 +84,7 @@ public class ServiceUtilsImpl implements ServiceUtils {
 	}
 
 	@Override
-	public void changeIsReadedStatus(ContactFormMessage contactFormMessage) {
+	public void changeIsReadStatus(ContactFormMessage contactFormMessage) {
 		if (contactFormMessage.getIsReaded())
 			contactFormMessage.setIsReaded(false);
 		else

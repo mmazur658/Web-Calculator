@@ -2,8 +2,15 @@ package pl.mazurmarcin.webcalculator.calculators;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Utility class used to perform calculation for geometric calculator.
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Component
 public class GeometryCalculatorImpl implements GeometryCalculator {
+
 
 	@Override
 	public double[] calculateSquare(String paramName, Double paramValue) {

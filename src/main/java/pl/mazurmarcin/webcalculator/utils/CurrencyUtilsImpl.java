@@ -17,30 +17,55 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
+/**
+ * Utility class used to download JSON Array with currencies from NBP.PL and
+ * transform it into the List of Currency objects.
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Component
 public class CurrencyUtilsImpl implements CurrencyUtils {
 
+	/**
+	 * Downloads and returns the JSONArray with the currencies.
+	 * 
+	 * URL: "http://api.nbp.pl/api/exchangerates/tables/a/last/2/"
+	 * 
+	 * @return A JSJSONArray representing the download JSONArray with currencies
+	 * @throws JSONException
+	 *             A JSONException is thrown when the String is not able to be
+	 *             parsed to JSONArray
+	 * @throws IOException
+	 *             A IOException is thrown when the method is not able to download
+	 *             the JSONArray from API
+	 */
 	public JSONArray downloadCurrencyArray() throws JSONException, IOException {
 
 		URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/a/last/2/");
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("GET");
-		connection.setRequestProperty("Accept", "application/json");		
+		connection.setRequestProperty("Accept", "application/json");
 		InputStream is = connection.getInputStream();
-		
+
 		BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
 		StringBuilder responseStrBuilder = new StringBuilder();
-		
+
 		String inputStr;
 		while ((inputStr = streamReader.readLine()) != null)
 			responseStrBuilder.append(inputStr);
-		
+
 		JSONArray jsonArray = new JSONArray(responseStrBuilder.toString());
 		is.close();
 
 		return jsonArray;
 	}
 
+	/**
+	 * Creates and returns a Currency object dedicated to Polish currency
+	 * 
+	 * @return The Currency representing the Polish currency
+	 */
 	public Currency createPolishCurrency() {
 
 		Currency currency = new Currency();
@@ -52,6 +77,18 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 		return currency;
 	}
 
+	/**
+	 * Returns a Currency extracted from JSON Objects.
+	 * 
+	 * @param jsonObject11
+	 *            The JSONObject containing the present values of currency
+	 * @param jsonObject12
+	 *            The JSONObject containing the previous values of currency
+	 * @return A Currency representing the Currency extracted from JSON Objects.
+	 * @throws JSONException
+	 *             A JSONException is thrown when the JSONObject is not able to
+	 *             return requested value
+	 */
 	public Currency extractCurrencyFromJsonObject(JSONObject jsonObject11, JSONObject jsonObject12)
 			throws JSONException {
 
@@ -72,6 +109,14 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 		return currency;
 	}
 
+	/**
+	 * Converts the list of Currency according to the given code.
+	 * 
+	 * @param currencyList
+	 *            The List&lt;Currency&gt; containing the list to be converted
+	 * @param selectedCurrencyCode
+	 *            The String containing the code of the currency
+	 */
 	public void recalculateCurrency(List<Currency> currencyList, String selectedCurrencyCode) {
 
 		if (!selectedCurrencyCode.equals("PLN")) {
@@ -98,6 +143,14 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 		}
 	}
 
+	/**
+	 * Adds status of the currency to every element of the given list.<br>
+	 * The status determines whether the value of the currency has increased or
+	 * decreased.
+	 * 
+	 * @param currencyList
+	 *            The List&lt;Currency&gt; containing the list of currencies
+	 */
 	void addCurrencyStatus(List<Currency> currencyList) {
 
 		double change2;
@@ -123,16 +176,22 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 	@Override
 	public List<Currency> getCurrencyList(String selectedCurrencyCode) throws JSONException, IOException {
 
+		// download the JSONArray with the currencies
 		JSONArray jsonArray = downloadCurrencyArray();
 
+		// Separate JSONArray into to 2 arrays, first with current currencies and the
+		// second with the previous currencies
 		JSONObject jsonObject1 = jsonArray.getJSONObject(0);
 		JSONObject jsonObject2 = jsonArray.getJSONObject(1);
 		JSONArray jsonArray1 = jsonObject1.optJSONArray("rates");
 		JSONArray jsonArray2 = jsonObject2.optJSONArray("rates");
 
 		List<Currency> currencyList = new ArrayList<>();
+
+		// add Polish currency to the list
 		currencyList.add(createPolishCurrency());
 
+		// extract currencies form the JSON objects and add them to the list
 		JSONObject jsonObject11;
 		JSONObject jsonObject12;
 

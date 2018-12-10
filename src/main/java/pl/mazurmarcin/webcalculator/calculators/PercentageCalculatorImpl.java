@@ -2,9 +2,22 @@ package pl.mazurmarcin.webcalculator.calculators;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Utility class used to perform calculation for percentage calculator.
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Component
 public class PercentageCalculatorImpl implements PercentageCalculator {
 
+	/**
+	 * Returns the rounded value
+	 * 
+	 * @param result
+	 *            The String containing the value to be rounded
+	 * @return A double representing the rounded value
+	 */
 	public double roundResult(Double result) {
 		String resultText = Double.toString(Math.abs(result));
 		int integerPlaces = resultText.indexOf('.');

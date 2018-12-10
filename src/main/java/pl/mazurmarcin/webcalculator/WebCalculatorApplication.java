@@ -11,8 +11,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+/**
+ * Main class used to start application
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @SpringBootApplication
 public class WebCalculatorApplication implements WebMvcConfigurer {
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebCalculatorApplication.class, args);

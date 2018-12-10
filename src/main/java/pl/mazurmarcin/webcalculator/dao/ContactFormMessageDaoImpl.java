@@ -11,11 +11,27 @@ import org.springframework.stereotype.Repository;
 import pl.mazurmarcin.webcalculator.entity.Comment;
 import pl.mazurmarcin.webcalculator.entity.ContactFormMessage;
 
+/**
+ * Repository class for performing database operations on ContactFormMessage
+ * objects.
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Repository
 public class ContactFormMessageDaoImpl implements ContactFormMessageDao {
 
+	/**
+	 * The EntityManager interface
+	 */
 	private EntityManager entityManager;
 
+	/**
+	 * Constructs a ContactFormMessageDaoImpl with the EntityManager
+	 * 
+	 * @param entityManager
+	 *            The EntityManager
+	 */
 	@Autowired
 	public ContactFormMessageDaoImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -51,26 +67,6 @@ public class ContactFormMessageDaoImpl implements ContactFormMessageDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Long getTotalAmountOfContactFormMessagesList(String hql) {
-
-		Query<Long> query = (Query<Long>) entityManager.createQuery(hql);
-		Long count = (Long) query.uniqueResult();
-
-		return count;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public long getContactFormMessageAmountOfSearchResult(String hql) {
-
-		Query<Long> query = (Query<Long>) entityManager.createQuery(hql);
-		Long count = (Long) query.uniqueResult();
-
-		return count;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
 	public ContactFormMessage getContactFormMessage(Long contactFormMessageId) {
 
 		String hql = "from ContactFormMessage where id=:contactFormMessageId";
@@ -92,8 +88,8 @@ public class ContactFormMessageDaoImpl implements ContactFormMessageDao {
 		String hql = "delete Comment where id=:commentId";
 		Query<ContactFormMessage> theQuery = (Query<ContactFormMessage>) entityManager.createQuery(hql);
 		theQuery.setParameter("commentId", commentId);
-		int count = theQuery.executeUpdate();
-		System.out.println(count);
+		theQuery.executeUpdate();
+
 	}
 
 }

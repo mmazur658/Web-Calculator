@@ -11,13 +11,41 @@ import pl.mazurmarcin.webcalculator.entity.ContactFormMessage;
 import pl.mazurmarcin.webcalculator.utils.SearchEngineUtils;
 import pl.mazurmarcin.webcalculator.utils.ServiceUtils;
 
+/**
+ * Service class for managing contact form messages.
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Service
 public class ContactFormMessageServiceImpl implements ContactFormMessageService {
 
+	/**
+	 * The ContactFormMessageDao interface
+	 */
 	private ContactFormMessageDao contactFormMessageDao;
+
+	/**
+	 * The SearchEngineUtils interface
+	 */
 	private SearchEngineUtils searchEngineUtils;
+
+	/**
+	 * The ServiceUtils interface
+	 */
 	private ServiceUtils serviceUtils;
 
+	/**
+	 * Constructs a ContactFormMessageServiceImpl with the ContactFormMessageDao,
+	 * SearchEngineUtils and ServiceUtils.
+	 * 
+	 * @param contactFormMessageDao
+	 *            The ContactFormMessageDao interface
+	 * @param searchEngineUtils
+	 *            The SearchEngineUtils interface
+	 * @param serviceUtils
+	 *            The ServiceUtils interface
+	 */
 	@Autowired
 	public ContactFormMessageServiceImpl(ContactFormMessageDao contactFormMessageDao,
 			SearchEngineUtils searchEngineUtils, ServiceUtils serviceUtils) {
@@ -29,8 +57,12 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	@Override
 	@Transactional
 	public void sendMessage(String senderEmail, String senderName, String messageText, String messageSubject) {
-		contactFormMessageDao.sendMessage(
-				serviceUtils.createContactFormMessage(senderEmail, senderName, messageText, messageSubject));
+
+		ContactFormMessage contactFormMessage = serviceUtils.createContactFormMessage(senderEmail, senderName,
+				messageText, messageSubject);
+
+		contactFormMessageDao.sendMessage(contactFormMessage);
+
 	}
 
 	@Override
@@ -44,6 +76,7 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	public List<ContactFormMessage> getContactFormMessages(String listType, Integer resultStartRange,
 			Integer resultRange) {
 
+		// Prepare the HQL Statement to be executed
 		String hqlType = "from ContactFormMessage ";
 		String hql = serviceUtils.prepareHqlDependsOnListType(hqlType, listType);
 
@@ -52,37 +85,27 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 
 	@Override
 	@Transactional
-	public Long getTotalAmountOfContactFormMessagesList(String listType) {
-
-		String hqlType = "SELECT COUNT(*) from ContactFormMessage ";
-		String hql = serviceUtils.prepareHqlDependsOnListType(hqlType, listType);
-
-		return contactFormMessageDao.getTotalAmountOfContactFormMessagesList(hql);
-	}
-
-	@Override
-	@Transactional
 	public void deleteContactFormMessage(long contactFormMessageId) {
 
 		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(contactFormMessageId);
-		serviceUtils.changeIsActiveAndIsReadedStatus(contactFormMessage);
+		serviceUtils.changeIsActiveAndIsReadedStatus(contactFormMessage); // change to false
 
 	}
 
 	@Override
 	@Transactional
-	public void changeContactFormMessageReadStatus(long selectedCheckboxValue) {
+	public void changeContactFormMessageReadStatus(long contactFormMessageId) {
 
-		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(selectedCheckboxValue);
-		serviceUtils.changeIsReadedStatus(contactFormMessage);
+		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(contactFormMessageId);
+		serviceUtils.changeIsReadStatus(contactFormMessage);
 
 	}
 
 	@Override
 	@Transactional
-	public void changeContactFormMessageRepliedStatus(long selectedCheckboxValue) {
+	public void changeContactFormMessageRepliedStatus(long contactFormMessageId) {
 
-		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(selectedCheckboxValue);
+		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(contactFormMessageId);
 		serviceUtils.changeIsRepliedStatus(contactFormMessage);
 
 	}
@@ -92,6 +115,7 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	public List<ContactFormMessage> getContactFormMessageSearchResult(String[] searchParameters, int startResult,
 			Integer resultRange) {
 
+		// Prepare the HQL Statement to be executed
 		String searchType = "from ContactFormMessage where ";
 		String[] fieldsName = { "senderName", "senderEmail", "messageSubject", "date", "listType" };
 		String hql = searchEngineUtils.prepareHqlUsingContactFormMessageSearchParameters(searchParameters, searchType,
@@ -102,27 +126,15 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 
 	@Override
 	@Transactional
-	public long getContactFormMessageAmountOfSearchResult(String[] searchParameters) {
-
-		String searchType = "SELECT COUNT(*) FROM ContactFormMessage where ";
-		String[] fieldsName = { "senderName", "senderEmail", "messageSubject", "date", "listType" };
-		String hql = searchEngineUtils.prepareHqlUsingContactFormMessageSearchParameters(searchParameters, searchType,
-				fieldsName);
-
-		return contactFormMessageDao.getContactFormMessageAmountOfSearchResult(hql);
-	}
-
-	@Override
-	@Transactional
 	public ContactFormMessage getContactFormMessage(Long contactFormMessageId) {
 		return contactFormMessageDao.getContactFormMessage(contactFormMessageId);
 	}
 
 	@Override
 	@Transactional
-	public void setContactFormMessageReadStatusTrue(long selectedCheckboxValue) {
+	public void setContactFormMessageReadStatusTrue(long contactFormMessageId) {
 
-		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(selectedCheckboxValue);
+		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(contactFormMessageId);
 		contactFormMessage.setIsReaded(true);
 
 	}

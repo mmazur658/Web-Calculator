@@ -15,13 +15,42 @@ import pl.mazurmarcin.webcalculator.entity.ContactFormMessage;
 import pl.mazurmarcin.webcalculator.services.CalculatorStatService;
 import pl.mazurmarcin.webcalculator.services.ContactFormMessageService;
 
+/**
+ * The controller class is used to return the view depending on the user request.
+ * This controller contains the views of: <br>
+ * <ul>
+ * <li>"dashboard"</li>
+ * <li>"parts/contact-form-message-table"</li>
+ * <li>"parts/message-modal"</li>
+ * <li>"statistics"</li>
+ * </ul>
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Controller
 @RequestMapping("/administrator-panel")
 public class AdminController {
 
+	/**
+	 * The ContactFormMessageService interface
+	 */
 	private ContactFormMessageService contactFormMessageService;
+
+	/**
+	 * The CalculatorStatService interface
+	 */
 	private CalculatorStatService calculatorStatService;
 
+	/**
+	 * Constructs an AdminController with the ContactFormMessageService and
+	 * CalculatorStatService
+	 * 
+	 * @param contactFormMessageService
+	 *            The ContactFormMessageService interface
+	 * @param calculatorStatService
+	 *            The CalculatorStatService interface
+	 */
 	@Autowired
 	public AdminController(ContactFormMessageService contactFormMessageService,
 			CalculatorStatService calculatorStatService) {
@@ -29,24 +58,54 @@ public class AdminController {
 		this.calculatorStatService = calculatorStatService;
 	}
 
+	/**
+	 * Returns the view of "dashboard" with model attribute:<br>
+	 * <ul>
+	 * <li>numberOfUnreadContactFormMessage</li>
+	 * </ul>
+	 * 
+	 * @param theModel
+	 *            The Model containing the data passed to the view
+	 * @param locale
+	 *            The Locale containing the user`s locale
+	 * @return The String representing the name of the view
+	 * 
+	 */
 	@RequestMapping("/dashboard")
 	public String showDashboard(Model theModel, Locale locale) {
 
 		long numberOfUnreadContactFormMessage = contactFormMessageService.getNumberOfUnreadContactFormMessage();
 		theModel.addAttribute("numberOfUnreadContactFormMessage", numberOfUnreadContactFormMessage);
-		
+
 		return "dashboard";
 	}
 
+	/**
+	 * Returns the view of "contact-form-messages"
+	 * 
+	 * @return The String representing the name of the view
+	 */
 	@RequestMapping("/contact-form-messages")
-	public String showContactFormMessages(Model theModel) {
-
-		long numberOfUnreadContactFormMessage = contactFormMessageService.getNumberOfUnreadContactFormMessage();
-		theModel.addAttribute("numberOfUnreadContactFormMessage", numberOfUnreadContactFormMessage);
-
+	public String showContactFormMessages() {
 		return "contact-form-messages";
 	}
 
+	/**
+	 * Returns the view of "parts/contact-form-message-table" with model attributes:
+	 * <br>
+	 * <ul>
+	 * <li>totalResults</li>
+	 * <li>contactFormMessageList</li>
+	 * </ul>
+	 * 
+	 * @param listType
+	 *            The String containing the type of the list ( new - archive - all )
+	 * @param theModel
+	 *            The Model containing the data passed to the view
+	 * @param resultStartRange
+	 *            The Integer containing the number of results to be returned
+	 * @return The String representing the name of the view
+	 */
 	@RequestMapping("/get-contact-form-messages")
 	public String geContactFormMessageList(@RequestParam(name = "listType") String listType, Model theModel,
 			@RequestParam(required = false, name = "resultStartRange") Integer resultStartRange) {
@@ -56,7 +115,7 @@ public class AdminController {
 
 		List<ContactFormMessage> contactFormMessageList = contactFormMessageService.getContactFormMessages(listType,
 				resultStartRange, resultRange);
-		Long totalResults = contactFormMessageService.getTotalAmountOfContactFormMessagesList(listType);
+		int totalResults = contactFormMessageList.size();
 
 		theModel.addAttribute("totalResults", totalResults);
 		theModel.addAttribute("contactFormMessageList", contactFormMessageList);
@@ -64,6 +123,32 @@ public class AdminController {
 		return "parts/contact-form-message-table";
 	}
 
+	/**
+	 * Returns the view of "parts/contact-form-message-table" limited by search
+	 * parameters and given date range with model attributes: <br>
+	 * 
+	 * <ul>
+	 * <li>totalResults</li>
+	 * <li>contactFormMessageList</li>
+	 * </ul>
+	 * 
+	 * @param listType
+	 *            The String containing the type of the list ( new - archive - all )
+	 * @param theModel
+	 *            The String containing the The Model containing the data passed to
+	 *            the view
+	 * @param searchFormName
+	 *            The String containing the name of the sender
+	 * @param searchFormEmail
+	 *            The String containing the email of the sender
+	 * @param searchFormSubject
+	 *            The String containing the subject of the message
+	 * @param searchFormStartDate
+	 *            The String containing the first day of the range
+	 * @param searchFormEndDate
+	 *            The String containing the last day of the range
+	 * @return The String representing the name of the view
+	 */
 	@RequestMapping("/get-search-contact-form-messages")
 	public String getSearchContactFormMessageList(@RequestParam(name = "listType") String listType, Model theModel,
 			@RequestParam(required = false, name = "searchFormName") String searchFormName,
@@ -81,7 +166,7 @@ public class AdminController {
 
 		List<ContactFormMessage> contactFormMessageList = contactFormMessageService
 				.getContactFormMessageSearchResult(searchParametersValue, 0, resultRange);
-		Long totalResults = contactFormMessageService.getContactFormMessageAmountOfSearchResult(searchParametersValue);
+		int totalResults = contactFormMessageList.size();
 
 		theModel.addAttribute("totalResults", totalResults);
 		theModel.addAttribute("contactFormMessageList", contactFormMessageList);
@@ -89,6 +174,19 @@ public class AdminController {
 		return "parts/contact-form-message-table";
 	}
 
+	/**
+	 * Returns the view of "parts/message-modal" with model attributes: <br>
+	 * <ul>
+	 * <li>commentsList</li>
+	 * <li>contactFormMessage</li>
+	 * </ul>
+	 * 
+	 * @param contactFormMessageId
+	 *            The Long containing the id of the message.
+	 * @param theModel
+	 *            The Model containing the data passed to the view
+	 * @return The String representing the name of the view
+	 */
 	@RequestMapping("/get-message-modal")
 	public String getAdminMessageModal(@RequestParam(name = "contactFormMessageId") Long contactFormMessageId,
 			Model theModel) {
@@ -102,11 +200,21 @@ public class AdminController {
 		return "parts/message-modal";
 	}
 
+	/**
+	 * Returns the view of "statistics" with model attribute: <br>
+	 * <ul>
+	 * <li>generalStatisticsResultSet</li>
+	 * </ul>
+	 * 
+	 * @param theModel
+	 *            The Model containing the data passed to the view
+	 * @return n
+	 */
 	@RequestMapping("/statistics")
 	public String showStatisticsPage(Model theModel) {
-		
-		long[] generalStatisticsResultSet = calculatorStatService.getGeneralStatisticsResultSet();		
-	
+
+		long[] generalStatisticsResultSet = calculatorStatService.getGeneralStatisticsResultSet();
+
 		theModel.addAttribute("generalStatisticsResultSet", generalStatisticsResultSet);
 
 		return "statistics";

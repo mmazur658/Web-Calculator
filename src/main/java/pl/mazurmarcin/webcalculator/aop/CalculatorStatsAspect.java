@@ -11,12 +11,27 @@ import org.springframework.stereotype.Component;
 
 import pl.mazurmarcin.webcalculator.services.CalculatorStatService;
 
+/**
+ * Aspect class used to create statistics of calculators
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Aspect
 @Component
 public class CalculatorStatsAspect {
 
+	/**
+	 * The CalculatorStatService interface
+	 */
 	private CalculatorStatService calculatorStatService;
 
+	/**
+	 * Constructs a CalculatorStatsAspect with the CalculatorStatService
+	 * 
+	 * @param calculatorStatService
+	 *            The CalculatorStatService interface
+	 */
 	@Autowired
 	public CalculatorStatsAspect(CalculatorStatService calculatorStatService) {
 		this.calculatorStatService = calculatorStatService;
@@ -27,10 +42,15 @@ public class CalculatorStatsAspect {
 	}
 
 	@Before("calculatorServices()")
-	public void addCalculatorStats(JoinPoint theJoinPoint) throws ParseException {
+	public void addCalculatorStats(JoinPoint theJoinPoint) {
 
 		String methodName = theJoinPoint.getSignature().getName();
-		calculatorStatService.saveCalculatorStat(methodName);
+
+		try {
+			calculatorStatService.saveCalculatorStat(methodName);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 	}
 

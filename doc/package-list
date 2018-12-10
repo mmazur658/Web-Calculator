@@ -1,0 +1,8 @@
+pl.mazurmarcin.webcalculator
+pl.mazurmarcin.webcalculator.aop
+pl.mazurmarcin.webcalculator.calculators
+pl.mazurmarcin.webcalculator.controller
+pl.mazurmarcin.webcalculator.dao
+pl.mazurmarcin.webcalculator.entity
+pl.mazurmarcin.webcalculator.services
+pl.mazurmarcin.webcalculator.utils

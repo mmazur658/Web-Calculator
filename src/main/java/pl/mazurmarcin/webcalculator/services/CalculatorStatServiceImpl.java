@@ -13,12 +13,34 @@ import org.springframework.stereotype.Service;
 import pl.mazurmarcin.webcalculator.dao.ClaculatorStatDao;
 import pl.mazurmarcin.webcalculator.utils.CalculatorStatUtils;
 
+/**
+ * Service class for managing statistics of the calculators.
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Service
 public class CalculatorStatServiceImpl implements CalculatorStatService {
 
+	/**
+	 * The ClaculatorStatDao interface
+	 */
 	private ClaculatorStatDao claculatorStatDao;
+
+	/**
+	 * The CalculatorStatUtils interface
+	 */
 	private CalculatorStatUtils calculatorStatUtils;
 
+	/**
+	 * Constructs a CalculatorStatServiceImpl with the ClaculatorStatDao and
+	 * CalculatorStatUtils.
+	 * 
+	 * @param claculatorStatDao
+	 *            The ClaculatorStatDao interface
+	 * @param calculatorStatUtils
+	 *            The CalculatorStatUtils interface
+	 */
 	@Autowired
 	public CalculatorStatServiceImpl(ClaculatorStatDao claculatorStatDao, CalculatorStatUtils calculatorStatUtils) {
 		this.claculatorStatDao = claculatorStatDao;
@@ -27,8 +49,8 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 
 	@Override
 	@Transactional
-	public void saveCalculatorStat(String methodName) throws ParseException {
-		claculatorStatDao.saveCalculatorStat(calculatorStatUtils.createNewCalculatorStat(methodName));
+	public void saveCalculatorStat(String calcName) throws ParseException {
+		claculatorStatDao.saveCalculatorStat(calculatorStatUtils.createNewCalculatorStat(calcName));
 	}
 
 	@Override
@@ -52,7 +74,7 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 
 		long[] generalStatisticsResultSet = new long[6];
 
-		generalStatisticsResultSet[0] = claculatorStatDao.getAmountOfCalculatorsType();
+		generalStatisticsResultSet[0] = claculatorStatDao.getNumberOfCalculatorsType();
 
 		String today = calculatorStatUtils.getToday();
 		generalStatisticsResultSet[1] = claculatorStatDao.sumOfCalculationForGivenDateRange(today, today);

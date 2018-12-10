@@ -5,6 +5,12 @@ import java.math.RoundingMode;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * Utility class used to perform calculation for unit converter
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Component
 public class ConverterCalculatorImpl implements ConverterCalculator {
 
@@ -12,18 +18,13 @@ public class ConverterCalculatorImpl implements ConverterCalculator {
 	public BigDecimal[] calculateLength(String inputId, String inputValue) {
 
 		/*
-		 * input ids 0 – millimeter, 1 – centimeter, 2 – meter, 3 – kilometer, 4 – inch,
-		 * 5 – foot, 6 – yard, 7 – mile, 8 - nautica-mile, 9 - astronomical-unit, 10 -
-		 * light-year, 11 - parsec
+		 * 0 – millimeter, 1 – centimeter, 2 – meter, 3 – kilometer, 4 – inch, 5 – foot,
+		 * 6 – yard, 7 – mile, 8 - nautica-mile, 9 - astronomical-unit, 10 - light-year,
+		 * 11 - parsec
 		 *
-		 * "#length-parsec","#length-light-year","#length-astronomical-unit",
-		 * "#length-nautica-mile","#length-yard","#length-mile","#length-foot",
-		 * "#length-inch","#length-kilometer","#length-meter","#length-centimeter",
-		 * "#length-millimeter"];
 		 */
 
 		BigDecimal[] resultSet = new BigDecimal[12];
-
 		BigDecimal meter;
 		BigDecimal inputValueBd = new BigDecimal(inputValue);
 

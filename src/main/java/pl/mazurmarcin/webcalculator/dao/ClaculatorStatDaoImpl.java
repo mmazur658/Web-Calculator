@@ -11,11 +11,27 @@ import org.springframework.stereotype.Repository;
 
 import pl.mazurmarcin.webcalculator.entity.CalculatorStat;
 
+/**
+ * Repository class for performing database operations on CalculatorStat
+ * objects.
+ * 
+ * @author Marcin Mazur
+ *
+ */
 @Repository
 public class ClaculatorStatDaoImpl implements ClaculatorStatDao {
 
+	/**
+	 * The EntityManager interface
+	 */
 	private EntityManager entityManager;
 
+	/**
+	 * Constructs a ClaculatorStatDaoImpl with the EntityManager
+	 * 
+	 * @param entityManager
+	 *            The EntityManager
+	 */
 	@Autowired
 	public ClaculatorStatDaoImpl(EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -61,7 +77,7 @@ public class ClaculatorStatDaoImpl implements ClaculatorStatDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public long getAmountOfCalculatorsType() {
+	public long getNumberOfCalculatorsType() {
 
 		String hql = "SELECT DISTINCT calcName FROM CalculatorStat";
 		Query<CalculatorStat> theQuery = (Query<CalculatorStat>) entityManager.createQuery(hql);
