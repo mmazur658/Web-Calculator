@@ -16,8 +16,8 @@ import pl.mazurmarcin.webcalculator.services.CalculatorStatService;
 import pl.mazurmarcin.webcalculator.services.ContactFormMessageService;
 
 /**
- * The controller class is used to return the view depending on the user request.
- * This controller contains the views of: <br>
+ * The controller class is used to return the view depending on the user
+ * request. This controller contains the views of: <br>
  * <ul>
  * <li>"dashboard"</li>
  * <li>"parts/contact-form-message-table"</li>
@@ -61,7 +61,8 @@ public class AdminController {
 	/**
 	 * Returns the view of "dashboard" with model attribute:<br>
 	 * <ul>
-	 * <li>numberOfUnreadContactFormMessage</li>
+	 * <li>numberOfUnreadContactFormMessage - The number of unread contact form
+	 * messages</li>
 	 * </ul>
 	 * 
 	 * @param theModel
@@ -94,8 +95,8 @@ public class AdminController {
 	 * Returns the view of "parts/contact-form-message-table" with model attributes:
 	 * <br>
 	 * <ul>
-	 * <li>totalResults</li>
-	 * <li>contactFormMessageList</li>
+	 * <li>contactFormMessageList - The list of contact form messages</li>
+	 * <li>totalResults - The length of the list</li>
 	 * </ul>
 	 * 
 	 * @param listType
@@ -128,8 +129,8 @@ public class AdminController {
 	 * parameters and given date range with model attributes: <br>
 	 * 
 	 * <ul>
-	 * <li>totalResults</li>
-	 * <li>contactFormMessageList</li>
+	 * <li>contactFormMessageList - The list of contact form messages</li>
+	 * <li>totalResults - The length of the list</li>
 	 * </ul>
 	 * 
 	 * @param listType
@@ -177,8 +178,8 @@ public class AdminController {
 	/**
 	 * Returns the view of "parts/message-modal" with model attributes: <br>
 	 * <ul>
-	 * <li>commentsList</li>
-	 * <li>contactFormMessage</li>
+	 * <li>commentsList - The list of Comments </li>
+	 * <li>contactFormMessage - The ContactFormMessage object</li>
 	 * </ul>
 	 * 
 	 * @param contactFormMessageId
@@ -203,7 +204,7 @@ public class AdminController {
 	/**
 	 * Returns the view of "statistics" with model attribute: <br>
 	 * <ul>
-	 * <li>generalStatisticsResultSet</li>
+	 * <li>generalStatisticsResultSet - The result set of general statistics</li>
 	 * </ul>
 	 * 
 	 * @param theModel

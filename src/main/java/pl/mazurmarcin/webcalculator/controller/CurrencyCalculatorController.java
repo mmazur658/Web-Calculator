@@ -46,7 +46,7 @@ public class CurrencyCalculatorController {
 	/**
 	 * Returns the view of "parts/currency-table" with model attribute:
 	 * <ul>
-	 * <li>currencyList</li>
+	 * <li>currencyList - The list of the Currency objects</li>
 	 * </ul>
 	 * 
 	 * @param theModel

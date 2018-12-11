@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.mazurmarcin.webcalculator.services.CalculatorStatService;
 
 /**
- * The rest controller class is used to perform actions depending on the
+ * The rest controller class is used to perform actions depending on the user
  * request.
  * 
  * @author Marcin Mazur

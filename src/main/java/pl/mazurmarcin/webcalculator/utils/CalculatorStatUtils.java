@@ -25,7 +25,7 @@ public interface CalculatorStatUtils {
 	CalculatorStat createNewCalculatorStat(String calcName) throws ParseException;
 
 	/**
-	 * Prepares the list of monthly statistics to display, <br>
+	 * Prepares the list of statistics to display, <br>
 	 * The list must contains the number of elements no less then resultRange. <br>
 	 * If the resultRange = 999 than the list can contain any number of elements
 	 * 
