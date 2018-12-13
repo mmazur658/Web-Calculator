@@ -27,7 +27,9 @@ public class ConverterCalculatorRestController {
 
 	/**
 	 * Constructs a ConverterCalculatorRestController with the CalculatorsService.
-	 * @param calculatorsService The CalculatorsService interface
+	 * 
+	 * @param calculatorsService
+	 *            The CalculatorsService interface
 	 */
 	@Autowired
 	public ConverterCalculatorRestController(CalculatorsService calculatorsService) {

@@ -132,4 +132,22 @@ public interface ContactFormMessageService {
 	 */
 	void deleteComment(long commentId);
 
+	/**
+	 * Returns the number of the contact form messages for given list type.
+	 * 
+	 * @param listType
+	 *            The String containing the type of the list
+	 * @return A long representing the number of the contact form messages
+	 */
+	long getNumberOfAllContactFormMessages(String listType);
+
+	/**
+	 * Returns the number of the contact form messages for given search parameters.
+	 * 
+	 * @param searchParametersValue
+	 *            The String[] containing the search parameters
+	 * @return A long representing the number of the contact form messages
+	 */
+	long getNumberOfContactFormMessagesForGivenSearchParams(String[] searchParametersValue);
+
 }

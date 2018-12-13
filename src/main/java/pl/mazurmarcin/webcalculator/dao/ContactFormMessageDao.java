@@ -38,7 +38,8 @@ public interface ContactFormMessageDao {
 	ContactFormMessage getContactFormMessage(Long contactFormMessageId);
 
 	/**
-	 * Returns the list of ContactFormMessage objects for given list type (new - archive - all)
+	 * Returns the list of ContactFormMessage objects for given list type (new -
+	 * archive - all)
 	 * 
 	 * @param listType
 	 *            A String containing the type of the list
@@ -66,5 +67,15 @@ public interface ContactFormMessageDao {
 	 *            The long containing the id of the comment to be deleted
 	 */
 	void deleteComment(long commentId);
+
+	/**
+	 * Returns the number of the contact form messages for given HQL Statement
+	 * 
+	 * @param hql
+	 *            The String containing the HQL Statement to be executed
+	 * @return An int representing the number of the contact form messages
+	 */
+	long getNumberOfAllContactFormMessages(String hql);
+
 
 }

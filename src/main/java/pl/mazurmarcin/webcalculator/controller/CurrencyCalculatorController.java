@@ -14,8 +14,8 @@ import pl.mazurmarcin.webcalculator.services.CalculatorsService;
 import pl.mazurmarcin.webcalculator.utils.Currency;
 
 /**
- * The controller class is used to return the view depending on the user request.
- * This controller contains the views of: <br>
+ * The controller class is used to return the view depending on the user
+ * request. This controller contains the views of: <br>
  * <ul>
  * <li>"parts/currency-table"</li>
  * </ul>

@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * The controller class is used to return the view depending one the user request.
- * This controller contains the views of: <br>
+ * The controller class is used to return the view depending one the user
+ * request. This controller contains the views of: <br>
  * 
  * <ul>
  * <li>"geometry-calculator"</li>
