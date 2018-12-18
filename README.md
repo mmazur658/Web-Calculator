@@ -22,4 +22,4 @@ Administrator Panel: Contact Form Messages management module – this module is 
 
 Information about page are displayed in modal window, which is shown after clicking the footer
 
-The webpage is available in Polish and English.
+The web page is available in Polish and English.
