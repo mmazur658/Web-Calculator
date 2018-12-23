@@ -58,8 +58,7 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 	public List<Object[]> getTopXCalculatorStatsForGivenDateRange(String startDate, String endDate, long resultRange,
 			Locale locale) {
 
-		startDate = startDate + " 00:00:00.0";
-		endDate = endDate + " 00:00:00.0";
+		transformDateToFullForm(startDate, endDate);
 
 		List<Object[]> resultList = claculatorStatDao.getTopXCalculatorStatsForGivenDateRange(startDate, endDate,
 				resultRange);
@@ -135,8 +134,7 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 	public List<Object[]> getSelectedCalculatorMonthlyData(String calculatorName, String startDate, String endDate,
 			int monthLength) {
 
-		startDate = startDate + " 00:00:00.0";
-		endDate = endDate + " 23:59:59.9";
+		transformDateToFullForm(startDate, endDate);
 
 		List<Object[]> resultList = claculatorStatDao.getSelectedCalculatorMonthlyData(calculatorName, startDate,
 				endDate);
@@ -144,6 +142,21 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 		List<Object[]> mainList = calculatorStatUtils.createListToDisplay(resultList, monthLength);
 
 		return mainList;
+	}
+
+	/**
+	 * Transforms the given dates to the full day range.<br>
+	 * Adds " 00:00:00.0" to the startDate and " 23:59:59.9" to the endDate
+	 * 
+	 * @param startDate
+	 *            The String containing the first day of the range
+	 * @param endDate
+	 *            The String containing the last day of the range
+	 */
+	public void transformDateToFullForm(String startDate, String endDate) {
+
+		startDate = startDate + " 00:00:00.0";
+		endDate = endDate + " 23:59:59.9";
 	}
 
 }

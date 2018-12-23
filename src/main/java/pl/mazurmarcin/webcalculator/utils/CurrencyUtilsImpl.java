@@ -32,7 +32,7 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 	 * 
 	 * URL: "http://api.nbp.pl/api/exchangerates/tables/a/last/2/"
 	 * 
-	 * @return A JSJSONArray representing the download JSONArray with currencies
+	 * @return A JSONArray representing the downloaded JSONArray with currencies
 	 * @throws JSONException
 	 *             A JSONException is thrown when the String is not able to be
 	 *             parsed to JSONArray

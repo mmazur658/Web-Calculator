@@ -149,6 +149,26 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 		// to monthLength
 		List<Object[]> mainList = new ArrayList<>();
 
+		// The list must contains the number of Object[] equals to monthLength
+		addBlankObjectsToTheList(mainList, monthLength);
+
+		// Populate mainList with the values from resultList
+		populateListWithValuesFromAnotherList(resultList, mainList);
+
+		return mainList;
+	}
+
+	/**
+	 * Adds a Object[] to the list. The list must contains the number of Object[]
+	 * equals to monthLength
+	 * 
+	 * @param mainList
+	 *            The list of Object[] containing the list to be populated
+	 * @param monthLength
+	 *            The int containing the length of the month
+	 */
+	private void addBlankObjectsToTheList(List<Object[]> mainList, int monthLength) {
+
 		// Each tempObject contains the two indexes: The number of the day and the
 		// default value of the calculator usage = 0
 		Object[] tempObject = new Object[2];
@@ -162,6 +182,18 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 			mainList.add(tempObject);
 
 		}
+
+	}
+
+	/**
+	 * Populates the mainList with the values from the resultList
+	 * 
+	 * @param resultList
+	 *            The list of Object[] containing the list with values
+	 * @param mainList
+	 *            The list of Object[] containing the list to be populated
+	 */
+	private void populateListWithValuesFromAnotherList(List<Object[]> resultList, List<Object[]> mainList) {
 
 		// Populate mainList with the values from resultList
 		String tempString;
@@ -177,6 +209,5 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 
 		}
 
-		return mainList;
 	}
 }

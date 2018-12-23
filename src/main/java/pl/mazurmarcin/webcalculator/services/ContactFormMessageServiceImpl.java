@@ -23,8 +23,9 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	/**
 	 * The array containing the names of the message search parameters
 	 */
-	private final String[] NAMES_OF_CONTACT_FORM_MESSAGE_FIELDS = { "senderName", "senderEmail", "messageSubject", "date", "listType" };
-	
+	private final String[] NAMES_OF_CONTACT_FORM_MESSAGE_FIELDS = { "senderName", "senderEmail", "messageSubject",
+			"date", "listType" };
+
 	/**
 	 * The ContactFormMessageDao interface
 	 */
@@ -93,8 +94,7 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	public void deleteContactFormMessage(long contactFormMessageId) {
 
 		ContactFormMessage contactFormMessage = contactFormMessageDao.getContactFormMessage(contactFormMessageId);
-		serviceUtils.changeIsActiveAndIsReadedStatus(contactFormMessage); // change to false
-
+		serviceUtils.changeIsActiveAndIsReadedStatus(contactFormMessage);
 	}
 
 	@Override
@@ -120,8 +120,7 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	public List<ContactFormMessage> getContactFormMessageSearchResult(String[] searchParameters, int startResult,
 			Integer resultRange) {
 
-		// Prepare the HQL Statement
-		String searchType = "from ContactFormMessage where ";		
+		String searchType = "from ContactFormMessage where ";
 		String hql = searchEngineUtils.prepareHqlUsingContactFormMessageSearchParameters(searchParameters, searchType,
 				NAMES_OF_CONTACT_FORM_MESSAGE_FIELDS);
 
@@ -162,7 +161,6 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	@Override
 	public long getNumberOfAllContactFormMessages(String listType) {
 
-		// Prepare the HQL Statement
 		String hqlType = "SELECT COUNT(*) FROM ContactFormMessage ";
 		String hql = serviceUtils.prepareHqlDependsOnListType(hqlType, listType);
 
@@ -172,11 +170,10 @@ public class ContactFormMessageServiceImpl implements ContactFormMessageService 
 	@Override
 	public long getNumberOfContactFormMessagesForGivenSearchParams(String[] searchParametersValue) {
 
-		// Prepare the HQL Statement
 		String searchType = "SELECT COUNT(*) FROM ContactFormMessage WHERE ";
-		String hql = searchEngineUtils.prepareHqlUsingContactFormMessageSearchParameters(searchParametersValue, searchType,
-				NAMES_OF_CONTACT_FORM_MESSAGE_FIELDS);
-		
+		String hql = searchEngineUtils.prepareHqlUsingContactFormMessageSearchParameters(searchParametersValue,
+				searchType, NAMES_OF_CONTACT_FORM_MESSAGE_FIELDS);
+
 		return contactFormMessageDao.getNumberOfAllContactFormMessages(hql);
 	}
 
