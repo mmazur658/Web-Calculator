@@ -5,7 +5,7 @@ function showToastrAlert(alertType, messageTitle, messageText) {
 	});
 
 		toastr.options = {
-			  "closeButton": false,
+			  "closeButton": true,
 			  "debug": false,
 			  "newestOnTop": false,
 			  "progressBar": true,
