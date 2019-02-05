@@ -57,7 +57,7 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 		}
 
 		/*
-		 * If the resultRange is not equal to 999 than resultList must contain the
+		 * If the resultRange is not equal to 999 than resultList must contains the
 		 * number of the element equal to resultRange. The placeholder object is added
 		 * to the end of the list until the size of the list is equal to resultRange.
 		 */
