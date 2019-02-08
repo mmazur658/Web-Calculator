@@ -50,7 +50,7 @@ public class SearchEngineUtilsImpl implements SearchEngineUtils {
 			}
 		}
 
-		// last 3 fields contain the startDate, endDate and listType
+		// last 3 fields contain startDate, endDate and listType
 		String startDate = searchParameters[searchParameters.length - 3];
 		String endDate = searchParameters[searchParameters.length - 2];
 		String listType = searchParameters[searchParameters.length - 1];

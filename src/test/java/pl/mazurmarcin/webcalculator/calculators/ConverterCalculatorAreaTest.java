@@ -19,26 +19,7 @@ class ConverterCalculatorAreaTest {
 	
 	BigDecimal[] expectedResultSet = new BigDecimal[12];
 	
-	@Test // "#area-noName"
-	void shouldReturnResultSetForGivenInputIdCase1() {
-
-		expectedResultSet = converterCalculatorImpl.calculateArea("#area-noName-nameNo", inputValue);
-
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[0]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[1]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[2]);
-		assertEquals(new BigDecimal("0.00"), expectedResultSet[3]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[4]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[5]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[6]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[7]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[8]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[9]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[10]);
-		assertEquals(new BigDecimal("0E-10"), expectedResultSet[11]);
-
-	}
-	
+		
 	@Test // "#area-millimeter"
 	void shouldReturnResultSetForGivenInputIdCase2() {
 

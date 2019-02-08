@@ -1,7 +1,8 @@
 //  * * * CSRF TOKEN * * * 
 var csrf_token = $("meta[name='_csrf']").attr("content");
+console.log(csrf_token);
 
-// * * * make culculations depending on calculation type * * * 
+// * * * make calculation depending on calculation type * * * 
 $('#percentage-calc-101').submit(function(event) {		
 	event.preventDefault();      
 	var $form = $( this ),
@@ -59,7 +60,7 @@ function getPercentageResult(paramValue1Id, paramValue2Id, resultId, operationCo
 		} else {
 			
 			// get result
-			$.post( url, { operationNumber: operationCode, paramValue1: $(paramValue1Id).val(), paramValue2: $(paramValue2Id).val(), _csrf: csrf_token  }, function(data) {
+			$.post( url, {  operationNumber: operationCode, paramValue1: $(paramValue1Id).val(), paramValue2: $(paramValue2Id).val(), _csrf : csrf_token }, function(data) {
 				$(resultId).text(data);
 			}); 	  
 		}; 
@@ -74,7 +75,7 @@ $(document).ready(function(){
 	});
 });
 
-// * * * Show toastr alert depending on the langauge  * * * 
+// * * * Show toastr alert depending on the language  * * * 
 function showCustomAlert(type, titlePL, textPL, titleEN, textEN){
 	
 	var userLang = document.documentElement.lang;

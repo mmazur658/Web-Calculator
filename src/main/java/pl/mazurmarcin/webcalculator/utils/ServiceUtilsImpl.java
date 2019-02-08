@@ -16,6 +16,9 @@ import pl.mazurmarcin.webcalculator.entity.ContactFormMessage;
 @Component
 public class ServiceUtilsImpl implements ServiceUtils {
 
+	private final String NEW_MESSAGES = "new";
+	private final String OLD_MESSAGES = "archive";
+
 	@Override
 	public ContactFormMessage createContactFormMessage(String senderEmail, String senderName, String messageText,
 			String messageSubject) {
@@ -40,10 +43,10 @@ public class ServiceUtilsImpl implements ServiceUtils {
 		StringBuilder sb = new StringBuilder();
 		sb.append(hqlType);
 		// if the list type is equal to "new" then HQL returns all active elements
-		if (listType.equals("new"))
+		if (listType.equals(NEW_MESSAGES))
 			sb.append("where isActive=true ");
 		// if the list type is equal to "new" then HQL returns all inactive elements
-		else if (listType.equals("archive"))
+		else if (listType.equals(OLD_MESSAGES))
 			sb.append("where isActive=false ");
 
 		sb.append("ORDER BY id DESC");

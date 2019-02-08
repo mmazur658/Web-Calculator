@@ -22,6 +22,10 @@ import pl.mazurmarcin.webcalculator.utils.CalculatorStatUtils;
 @Service
 public class CalculatorStatServiceImpl implements CalculatorStatService {
 
+	private final String BASIC_DATE_FORMAT = "yyyy-MM-dd";
+	private final String START_TIME = " 00:00:00.0";
+	private final String END_TIME = " 23:59:59.9";
+
 	/**
 	 * The ClaculatorStatDao interface
 	 */
@@ -101,7 +105,7 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 
 		String[] selectedCalculatorGeneralStatistics = new String[6];
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat(BASIC_DATE_FORMAT);
 		selectedCalculatorGeneralStatistics[0] = sdf.format(claculatorStatDao.getCalculatorFirstUse(calculatorName));
 
 		String today = calculatorStatUtils.getToday();
@@ -155,8 +159,8 @@ public class CalculatorStatServiceImpl implements CalculatorStatService {
 	 */
 	public void transformDateToFullForm(String startDate, String endDate) {
 
-		startDate = startDate + " 00:00:00.0";
-		endDate = endDate + " 23:59:59.9";
+		startDate = startDate + START_TIME;
+		endDate = endDate + END_TIME;
 	}
 
 }

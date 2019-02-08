@@ -27,6 +27,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class CurrencyUtilsImpl implements CurrencyUtils {
 
+	private final String POLISH_ZLOTY_CODE = "PLN";
+	private final String POLISH_ZLOTY_NAME_PL = "Polski Złoty";
+	private final String DEFAULT_MID_VALUE = "1.0000";
+	private final String CURRENCY_URL = "http://api.nbp.pl/api/exchangerates/tables/a/last/2/";
+
 	/**
 	 * Downloads and returns the JSONArray with the currencies.
 	 * 
@@ -42,7 +47,7 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 	 */
 	public JSONArray downloadCurrencyArray() throws JSONException, IOException {
 
-		URL url = new URL("http://api.nbp.pl/api/exchangerates/tables/a/last/2/");
+		URL url = new URL(CURRENCY_URL);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("GET");
 		connection.setRequestProperty("Accept", "application/json");
@@ -69,10 +74,10 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 	public Currency createPolishCurrency() {
 
 		Currency currency = new Currency();
-		currency.setCode("PLN");
-		currency.setCurrencyName("Polski Złoty");
-		currency.setMid("1.0000");
-		currency.setPrevMid("1.0000");
+		currency.setCode(POLISH_ZLOTY_CODE);
+		currency.setCurrencyName(POLISH_ZLOTY_NAME_PL);
+		currency.setMid(DEFAULT_MID_VALUE);
+		currency.setPrevMid(DEFAULT_MID_VALUE);
 
 		return currency;
 	}
@@ -119,7 +124,7 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 	 */
 	public void recalculateCurrency(List<Currency> currencyList, String selectedCurrencyCode) {
 
-		if (!selectedCurrencyCode.equals("PLN")) {
+		if (!selectedCurrencyCode.equals(POLISH_ZLOTY_CODE)) {
 
 			double prevMid = 0;
 			double mid = 0;
@@ -202,7 +207,7 @@ public class CurrencyUtilsImpl implements CurrencyUtils {
 		}
 
 		if (selectedCurrencyCode == null)
-			selectedCurrencyCode = "PLN";
+			selectedCurrencyCode = POLISH_ZLOTY_CODE;
 
 		recalculateCurrency(currencyList, selectedCurrencyCode);
 		addCurrencyStatus(currencyList);

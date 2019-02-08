@@ -22,14 +22,24 @@ import pl.mazurmarcin.webcalculator.entity.CalculatorStat;
 @Component
 public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 
+	private final String[] CALCULATOR_TYPES_PL = { "Kwadrat", "Prostokąt", "Długość", "Masa", "Powierzchnia", "Waluty",
+			"Procenty" };
+
+	private final String[] CALCULATOR_TYPES_EN = { "Square", "Rectangle", "Length", "Weight", "Area", "Currency",
+			"Percentage" };
+
+	private final String BASIC_DATE_FORMAT = "yyyy-MM-dd";
+	private final String TIME_ZERO = " 00:00:00.0";
+	private final String LANGUAGE_PL = "pl";
+
 	@Override
 	public CalculatorStat createNewCalculatorStat(String calcName) throws ParseException {
 
 		CalculatorStat calculatorStat = new CalculatorStat();
 		calculatorStat.setCalcName(calcName);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String date = sdf.format(new Date()) + " 00:00:00.0";
+		SimpleDateFormat sdf = new SimpleDateFormat(BASIC_DATE_FORMAT);
+		String date = sdf.format(new Date()) + TIME_ZERO;
 		calculatorStat.setDate(sdf.parse(date));
 
 		return calculatorStat;
@@ -37,11 +47,6 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 
 	@Override
 	public void prepareListForDisplay(List<Object[]> resultList, long resultRange, Locale locale) {
-
-		// Calculators names
-		String[] calculatorType_PL = { "Kwadrat", "Prostokąt", "Długość", "Masa", "Powierzchnia", "Waluty",
-				"Procenty" };
-		String[] calculatorType_EN = { "Square", "Rectangle", "Length", "Weight", "Area", "Currency", "Percentage" };
 
 		String tempName;
 		int index;
@@ -52,8 +57,8 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 		for (Object[] o : resultList) {
 			tempName = (String) o[0];
 			tempName = tempName.substring(9, tempName.length());
-			index = Arrays.asList(calculatorType_EN).indexOf(tempName);
-			o[0] = locale.getLanguage().equals("pl") ? calculatorType_PL[index] : calculatorType_EN[index];
+			index = Arrays.asList(CALCULATOR_TYPES_EN).indexOf(tempName);
+			o[0] = locale.getLanguage().equals(LANGUAGE_PL) ? CALCULATOR_TYPES_PL[index] : CALCULATOR_TYPES_EN[index];
 		}
 
 		/*
@@ -64,7 +69,7 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 		if (resultRange != 999) {
 			if (resultList.size() < resultRange) {
 				Object[] tempObject = new Object[2];
-				tempObject[0] = locale.getLanguage().equals("pl") ? "Brak danych" : "No data";
+				tempObject[0] = locale.getLanguage().equals(LANGUAGE_PL) ? "Brak danych" : "No data";
 				tempObject[1] = 0;
 
 				do {
@@ -80,9 +85,9 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 
 			boolean isPresent = false;
 
-			if (locale.getLanguage().equals("pl")) {
+			if (locale.getLanguage().equals(LANGUAGE_PL)) {
 
-				for (String s : calculatorType_PL) {
+				for (String s : CALCULATOR_TYPES_PL) {
 
 					isPresent = false;
 
@@ -101,7 +106,7 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 
 			} else {
 
-				for (String s : calculatorType_EN) {
+				for (String s : CALCULATOR_TYPES_EN) {
 					isPresent = false;
 
 					for (Object[] tempObject : resultList) {
@@ -124,22 +129,22 @@ public class CalculatorStatUtilsImpl implements CalculatorStatUtils {
 	public String getDateMinusGivenValue(int value) {
 
 		value = value * (-1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat(BASIC_DATE_FORMAT);
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, value);
 
 		Date tempDate = calendar.getTime();
 
-		return sdf.format(tempDate) + " 00:00:00.0";
+		return sdf.format(tempDate) + TIME_ZERO;
 	}
 
 	@Override
 	public String getToday() {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat(BASIC_DATE_FORMAT);
 
-		return sdf.format(new Date()) + " 00:00:00.0";
+		return sdf.format(new Date()) + TIME_ZERO;
 	}
 
 	@Override

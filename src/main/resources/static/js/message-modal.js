@@ -1,6 +1,7 @@
 //  * * * CSRF TOKEN * * * 
 var csrf_token = $("meta[name='_csrf']").attr("content");
 
+
 // * * * Hide comment form on page loading * * * 
 $('#addCommentDiv').hide();
 

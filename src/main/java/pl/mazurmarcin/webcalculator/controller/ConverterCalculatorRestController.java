@@ -39,8 +39,12 @@ public class ConverterCalculatorRestController {
 	@RequestMapping("/calculate-length")
 	public BigDecimal[] calculateLength(@RequestParam(name = "inputId") String inputId,
 			@RequestParam(name = "inputValue") String inputValue) {
+		
+		BigDecimal[] tempBigDc = calculatorsService.calculateLength(inputId, inputValue);
+		
+		System.out.println(tempBigDc);
 
-		return calculatorsService.calculateLength(inputId, inputValue);
+		return tempBigDc;
 	}
 
 	@RequestMapping("/calculate-weight")

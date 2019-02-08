@@ -32,6 +32,9 @@ import pl.mazurmarcin.webcalculator.services.ContactFormMessageService;
 @RequestMapping("/administrator-panel")
 public class AdminController {
 
+	private final String START_TIME = " 00:00:00.0";
+	private final String END_TIME = " 23:59:59.9";
+
 	/**
 	 * The number of the results to be returned
 	 */
@@ -161,8 +164,8 @@ public class AdminController {
 			@RequestParam(required = false, name = "searchFormStartDate") String searchFormStartDate,
 			@RequestParam(required = false, name = "searchFormEndDate") String searchFormEndDate) {
 
-		searchFormEndDate = (searchFormEndDate != "") ? searchFormEndDate + " 23:59:59.0" : "";
-		searchFormStartDate = (searchFormStartDate != "") ? searchFormStartDate + " 00:00:00.0" : "";
+		searchFormEndDate = (searchFormEndDate != "") ? searchFormEndDate + END_TIME : "";
+		searchFormStartDate = (searchFormStartDate != "") ? searchFormStartDate + START_TIME : "";
 
 		String[] searchParametersValue = { searchFormName.trim(), searchFormEmail.trim(), searchFormSubject.trim(),
 				searchFormStartDate.trim(), searchFormEndDate.trim(), listType.trim() };
